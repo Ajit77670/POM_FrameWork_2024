@@ -39,7 +39,7 @@ public class LoginPageTest extends BaseTest {
     @Description("This is login Test which lands to the AccountPage")
     @Severity(SeverityLevel.BLOCKER)
     @Test(priority=4)
-    public void loginTest(){
+    public void loginTest(){     
         acntPage = loginPage.doLogin(prop.getProperty("username").trim(),prop.getProperty("password").trim() );
         Assert.assertTrue(acntPage.isLogOutFiledExist()); // Verifying any Field of AccntPage if we loged in and landing to ccnt page or not.
     }

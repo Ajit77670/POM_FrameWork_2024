@@ -24,7 +24,7 @@ public class RegistrationPageTest extends BaseTest {
         Random random = new Random(); // To generate any random value , always use random class.
        // String email = "automation" +random.nextInt(1000)+ "@gmail.com"; // one way to create the random value,
         String email ="automation"+System.currentTimeMillis() +"@gmail.com"; // we are considering this bcuz , the currntTime will always be unique, the above one if 1000 capacity got generated then there will be chance to create the duplicate value.
-        return email;
+        return email; 
     }
 
     @DataProvider

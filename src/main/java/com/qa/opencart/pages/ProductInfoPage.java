@@ -48,7 +48,7 @@ public class ProductInfoPage {
     public  Map<String, String> getProductInfo() {
        // productInfoMap = new HashMap<String, String>();  // No order maintain in HashMap
         productInfoMap = new LinkedHashMap<>();            // LinkedHashMap maintains the order
-       // productInfoMap = new TreeMap<>();                  // Gives sorted result
+       // productInfoMap = new TreeMap<>();                // Gives sorted result
         productInfoMap.put("productname", getProductHeader());
         getProductmetadata();
         getProductPriceData();

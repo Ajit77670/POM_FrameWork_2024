@@ -21,6 +21,15 @@ public class OptionManager {
     // ChromeOptions for Chrome Browser
     public ChromeOptions getChromeOptions(){
         co = new ChromeOptions();
+
+        // for running test on remote side
+        if(Boolean.parseBoolean(prop.getProperty("remote"))){
+            co.setBrowserVersion(prop.getProperty("browserversion"));
+            co.setCapability("browsername", "chrome");
+            co.setCapability("enableVNC", true); // for view in Selenoid.
+            co.setCapability("name",prop.getProperty("testcasename"));// gives name while running on Grid which test running on which browser.
+        }
+
         if(Boolean.parseBoolean(prop.getProperty("headless").trim())){  // properties files are in key and value format which return String, so in order to make as true or false we parse into boolean.
             System.out.println("=========Running Chrome in HeadLess============");
             co.addArguments("--headless");

@@ -40,7 +40,7 @@ public class LoginPage {
         return title;
     }
 
-    // Cuurent URL page method
+    // Current URL page method
     public String LoginUrl(){
 
         String currUrl = driver.getCurrentUrl();

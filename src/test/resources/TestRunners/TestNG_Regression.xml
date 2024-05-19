@@ -15,25 +15,53 @@
     </listeners>
 
 
-    <test name="Login Page Test">
+    <test name="Login Page Test_chrome_90">
+        <parameter name="browser" value="chrome" />
+        <parameter name="browserversion" value="90.0" />
+        <parameter name="testcasename" value="Login Page Test_chrome_90" />
         <classes>
             <class name="com.qa.opencart.test.LoginPageTest" />
         </classes>
     </test>
 
-    <test name="Account Page Test">
+    <test name="Login Page Test_chrome_79">
+        <parameter name="browser" value="chrome" />
+        <parameter name="browserversion" value="79.0" />
+        <parameter name="testcasename" value="Login Page Test_chrome_79" />
+        <classes>
+            <class name="com.qa.opencart.test.LoginPageTest" />
+        </classes>
+    </test>
+
+    <test name="Account Page Test_chrome_90">
+        <parameter name="browser" value="chrome" />
+        <parameter name="browserversion" value="90.0" />
+        <parameter name="testcasename" value="Account Page Test_chrome_90" />
         <classes>
             <class name="com.qa.opencart.test.AccountPageTest" />
         </classes>
     </test>
 
-    <test name="ProductInfo Page Test">
+
+    <test name="Account Page Test_firefox">
+        <parameter name="browser" value="firefox" />
+        <parameter name="browserversion" value="83.0" />
+        <classes>
+            <class name="com.qa.opencart.test.AccountPageTest" />
+        </classes>
+    </test>
+
+    <test name="ProductInfo Page Test_edge_90.0">
+        <parameter name="browser" value="edge" />
+        <parameter name="browserversion" value="90.0" />
         <classes>
             <class name="com.qa.opencart.test.ProductInfoPageTest" />
         </classes>
     </test>
 
-    <test name="Registartion Page Test">
+    <test name="Registartion Page Test_chrome">
+        <parameter name="browser" value="chrome" />
+        <parameter name="browserversion" value="109.0" />
         <classes>
             <class name="com.qa.opencart.test.RegistrationPageTest" />
         </classes>

@@ -39,7 +39,7 @@ public class ProductInfoPageTest extends BaseTest {
     public void addToCartTest() {
         searchPage = acntPage.performSearch("MacBook");
         productInfoPage = searchPage.selectProduct("MacBook Pro");
-        productInfoPage.enterQuantityT(2);
+        productInfoPage.enterQuantityT(2); 
         String addtoCartMsg = productInfoPage.addProductToCart();
        // Success: You have added MacBook Pro to your shopping cart!
 

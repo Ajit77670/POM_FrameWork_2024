@@ -9,12 +9,15 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Properties;
 
 public class DriverFactory {
@@ -27,12 +30,13 @@ public class DriverFactory {
 
     public static ThreadLocal<WebDriver> tlDdirver = new ThreadLocal<WebDriver>();
 
+
     /***
      *  This Method is used to initialize the driver on the basis of browser we provide.
      * @param prop
      * @return WebDriver
      */
-    public WebDriver initDriver(Properties prop){
+    public WebDriver initDriver(Properties prop) {
 
          highlight =prop.getProperty("highlight").trim(); // Fetching the properties value of key-"highlight" and storing in the static variable higlight.
         // Putting highlight outside so that it will be applicable to all browser.
@@ -43,24 +47,52 @@ public class DriverFactory {
          // String browserName System.getProperty("browser"); // This we can use if we want to pass the browser through command line.
         System.out.println("Browser name is " +browserName);
 
+            // chrome
             if(browserName.trim().equalsIgnoreCase("chrome")){
-              //  driver = new ChromeDriver(optionManger.getChromeOptions()); // Passing chrome optionManager as constructor parameter.
-                tlDdirver.set( new ChromeDriver(optionManger.getChromeOptions()));
 
+                if(Boolean.parseBoolean(prop.getProperty("remote"))) {
+                    //run on remote/grid:
+                    init_remoteDriver("chrome");
+
+                }else{
+                    // local execution
+                    //  driver = new ChromeDriver(optionManger.getChromeOptions()); // Passing chrome optionManager as constructor parameter.
+                    tlDdirver.set( new ChromeDriver(optionManger.getChromeOptions()));
+                }
+                
+                
+
+            //firefox
             } else if (browserName.trim().equalsIgnoreCase("firefox")) {
                // driver = new FirefoxDriver(optionManger.getFirefoxOptions()); // Passing firefox optionManager as constructor parameter.
-                tlDdirver.set( new FirefoxDriver(optionManger.getFirefoxOptions()));
 
+                if (Boolean.parseBoolean(prop.getProperty("remote"))) {
+                    // run on remote/grid:
+                    init_remoteDriver("firefox");
+                } else {
+                    tlDdirver.set(new FirefoxDriver(optionManger.getFirefoxOptions()));
+
+                }
+
+            //safari
             } else if (browserName.trim().equalsIgnoreCase("safari")) {
                // driver = new SafariDriver();
                 tlDdirver.set( new SafariDriver());
 
+
+            //edge
             } else if (browserName.trim().equalsIgnoreCase("edge")) {
-               // driver = new EdgeDriver(optionManger.getEdgeOptions());// Passing edge optionManager as constructor parameter.
-                tlDdirver.set( new EdgeDriver(optionManger.getEdgeOptions()));
+                if (Boolean.parseBoolean(prop.getProperty("remote"))) {
+                    // run on remote/grid:
+                    init_remoteDriver("edge");
+                } else {
+                    tlDdirver.set(new EdgeDriver(optionManger.getEdgeOptions()));
+                }
 
             }else {
                 System.out.println("choose the Compatible browser");
+                throw new FrameworkExceptions("NO BROWSER FOUND EXCEPTION....");
+
             }
 
         getDriver().manage().deleteAllCookies();
@@ -87,8 +119,8 @@ public class DriverFactory {
         Properties prop = new Properties();
         FileInputStream ip =null;
 
-        String envName = System.getProperty("env");  // In Java enviroment variables we are reading through System Class getProperty() Method and setting the enviroment variable through setPropert() method.
-        System.out.println("Running test Cases on Envirmoment Variable" + envName);
+        String envName = System.getProperty("env");  // In Java environment variables we are reading through System Class getProperty() Method and setting the environment variable through setProperty() method.
+        System.out.println("Running test Cases on Environment Variable" + envName);
 
         try {
             if (envName == null) {
@@ -127,6 +159,39 @@ public class DriverFactory {
             e.printStackTrace();
         }
         return prop;
+    }
+
+
+    /**
+     *this method is called internally to initialize the driver with RemoteWebDriver
+     *
+     * @param browser
+     */
+    private void init_remoteDriver(String browser) {
+
+        System.out.println("Running tests on grid server:::" + browser);
+
+        try {
+            switch (browser.toLowerCase()) {
+                case "chrome":
+                    tlDdirver.set(
+                            new RemoteWebDriver(new URL(prop.getProperty("huburl")), optionManger.getChromeOptions()));
+                    break;
+                case "firefox": 
+                    tlDdirver.set(
+                            new RemoteWebDriver(new URL(prop.getProperty("huburl")), optionManger.getFirefoxOptions()));
+                    break;
+                case "edge":
+                    tlDdirver.set(new RemoteWebDriver(new URL(prop.getProperty("huburl")), optionManger.getEdgeOptions()));
+                    break;
+                default:
+                    System.out.println("plz pass the right browser for remote execution..." + browser);
+                    throw new FrameworkExceptions("NOREMOTEBROWSEREXCEPTION");
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
     }
 
 

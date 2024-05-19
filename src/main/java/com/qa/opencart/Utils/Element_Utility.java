@@ -72,6 +72,7 @@ public class Element_Utility {
     public void ActionSendKeys(By locator, String value) {
         Actions act = new Actions(driver);
         act.sendKeys(getElement(locator), value).build().perform();
+
     }
 
     public void doActionClick(By locator) {
@@ -315,7 +316,7 @@ public class Element_Utility {
 
     public void WaitelementToBeClickable(int duration, By locator) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(duration));
-        wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(locator)).click(); 
     }
 
 

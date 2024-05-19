@@ -30,6 +30,6 @@ public class OpenCartConstants {
 
     1> Constant Data which we write in Constant.java file using : public final static
     2> Test Data , which we can provide through Excel or Data Provider or DataBase
-    3> enviroment Data , like username , password , ip-address these data will maintain in properties file.
+    3> environment Data , like username , password , ip-address these data will maintain in properties file.
 
  */

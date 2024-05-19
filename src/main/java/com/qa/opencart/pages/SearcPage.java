@@ -11,8 +11,7 @@ public class SearcPage {
     private Element_Utility eutil;
 
     // private By Locators
-
-    By productCount = By.cssSelector("div.row div.row div.caption");
+    private By productCount = By.cssSelector("div.row div.row div.caption");
 
     //Constructor
     public SearcPage(WebDriver driver) {
@@ -35,7 +34,7 @@ public class SearcPage {
      * @return a new Page ProductInfoPage,this page is the new landing page for which we have selected the product
      */
     public ProductInfoPage selectProduct(String productName){
-        By product = By.linkText(productName); // The reason we decalare this locator inside , bcuz this is generic locator for all product on the page, if we not make it dynamic then we need to define By locator for all the products Outside of the method with hardcoded value i.e in class which would be too big list.
+        By product = By.linkText(productName); // The reason we decalare this locator inside , bcuz this is generic locator for all product on the page, if we not make it dynamic then we need to define By locator for all the products Outside the method with hardcoded value i.e in class which would be too big list.
          eutil.WaitvisibilityOfElementLocated(OpenCartConstants.DEFAULT_MEDIUM_TIME_OUT,product).click();
          return new ProductInfoPage(driver);
     }
